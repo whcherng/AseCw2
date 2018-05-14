@@ -10,34 +10,45 @@ using namespace ExactArithmetic;
 #include <boost/test/included/unit_test.hpp>
 #endif
 
-BOOST_AUTO_TEST_SUITE(Cancel)
+BOOST_AUTO_TEST_SUITE(TestOperator)
 
-	Rational threeOverThree(3, 3);
-	Rational fourOverFour(4, 4);
-	Rational threeOverSix(3, 6);
-	Rational twoOverFour(2, 4);
-	Rational half(1, 2);
-	Rational quarter(1, 4);
-
-	BOOST_AUTO_TEST_CASE(cancels2Unity)
+	BOOST_AUTO_TEST_CASE(comparisonOps)
 	{
-		BOOST_CHECK_EQUAL(threeOverThree, Rational(1, 1));
-		BOOST_CHECK_EQUAL(fourOverFour, Rational(1, 1));
-		BOOST_CHECK_EQUAL(threeOverThree, fourOverFour);
+		BOOST_CHECK(Rational(1, 5)>Rational(1, 10));
+		BOOST_CHECK(Rational(2, 10)>Rational(1, 10));
+
+		BOOST_CHECK(Rational(6, 100) <= Rational(1, 2));
+		BOOST_CHECK(Rational(1, 2) >= Rational(6, 100));
+
+		BOOST_CHECK(Rational(2, 10) >=Rational(1, 5));
+		BOOST_CHECK(Rational(2, 10) <= Rational(1, 5));
+
+		BOOST_CHECK(Rational(2, 10) == Rational(1, 5));
 	}
 
-	BOOST_AUTO_TEST_CASE(cancels2Half)
+	BOOST_AUTO_TEST_CASE(arithmeticOps)
 	{
-		BOOST_CHECK_EQUAL(threeOverSix, Rational(1, 2));
-		BOOST_CHECK_EQUAL(twoOverFour, Rational(1, 2));
-		BOOST_CHECK_EQUAL(threeOverSix, twoOverFour);
-		BOOST_CHECK_EQUAL(Rational(2000000, 1000000), Rational(2));
+		BOOST_CHECK_EQUAL(Rational(5, 10) + Rational(3, 10), Rational(4, 5));
+		BOOST_CHECK_EQUAL(Rational(5, 10) - Rational(3, 10), Rational(1, 5));
+		BOOST_CHECK_EQUAL(Rational(5, 10)*Rational(3, 5), Rational(3, 10));
+		BOOST_CHECK_EQUAL(Rational(5, 10)/Rational(3, 5), Rational(5, 6));
+
 	}
 
-	BOOST_AUTO_TEST_CASE(addition)
+	BOOST_AUTO_TEST_CASE(arithmeticOps2)
 	{
-		BOOST_CHECK_EQUAL(Rational(1,6) + Rational(1,6), Rational(1,6));
-		BOOST_CHECK_EQUAL(Rational(1,3) + Rational(1,3), Rational(1,3));
+		Rational a = Rational(5, 10);
+		a += Rational(3, 10);
+		BOOST_CHECK_EQUAL(a, Rational(4, 5));
+		a = Rational(5, 10);
+		a -= Rational(3, 10);
+		BOOST_CHECK_EQUAL(a, Rational(1, 5));
+		a = Rational(5, 10);
+		a *= Rational(3, 5);
+		BOOST_CHECK_EQUAL(a, Rational(3, 10));
+		a = Rational(5, 10);
+		a /= Rational(3, 5);
+		BOOST_CHECK_EQUAL(a, Rational(25, 30));
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

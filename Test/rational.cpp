@@ -67,22 +67,22 @@ bool Rational::operator!=(const Rational & r) const
 
 bool Rational::operator<(const Rational & r) const
 {
-    return num < r.num || denom < r.denom;
+	return (num * r.denom < r.num*denom);
 }
 
 bool Rational::operator>(const Rational & r) const
 {
-    return num > r.num || denom > r.denom;
+	return (num * r.denom > r.num*denom);
 }
 
 bool Rational::operator<=(const Rational & r) const
 {
-    return num <= r.num || denom <= r.denom;
+	return (num * r.denom <= r.num*denom);
 }
 
 bool Rational::operator>=(const Rational & r) const
 {
-    return num >= r.num || denom >= r.denom;
+	return (num * r.denom >= r.num*denom);
 }
 
 
@@ -99,12 +99,12 @@ bool Rational::operator>=(const Rational & r) const
 
 Rational Rational::operator+(const Rational & r) const
 {
-    return Rational(num + r.num, denom + r.denom);
+    return Rational(num * r.denom + r.num * denom, denom * r.denom);
 }
 
 Rational Rational::operator-(const Rational & r) const
 {
-    return Rational(num - r.num, denom - r.denom);
+    return Rational(num * r.denom - r.num * denom, denom * r.denom);
 }
 
 Rational Rational::operator*(const Rational & r) const
@@ -114,53 +114,32 @@ Rational Rational::operator*(const Rational & r) const
 
 Rational Rational::operator/(const Rational & r) const
 {
-    return Rational(num / r.denom, denom / r.num);
+    return Rational(num * r.denom, denom * r.num);
 }
-
- //Rational operator+(const Rational &x, const Rational &y){
-	// Rational temp;
-	// int tempLD = x.denom;
-	// int tempRD = y.denom;
-	// temp.denom=x.denom*tempRD;
-	// temp.num=x.num*tempRD + y.num*tempLD;
-	// temp.();
-	// return temp;
- //}
- //Rational operator-(const Rational & x, const Rational &y){}
- //Rational operator*(const Rational & x, const Rational &y){}
- //Rational operator/(const Rational & x, const Rational &y){}
 
 ////////////////////////////////////////////////////////////////////////////////
 
 Rational & Rational::operator+=(const Rational & r)
 {
-    num   += r.num;
-    denom += r.denom;
-    normalise();
+	*this = *this + r;
     return *this;
 }
 
 Rational & Rational::operator-=(const Rational & r)
 {
-    num   -= r.num;
-    denom -= r.denom;
-    normalise();
+	*this = *this - r;
     return *this;
 }
 
 Rational & Rational::operator*=(const Rational & r)
 {
-    num   *= r.num;
-    denom *= r.denom;
-    normalise();
+	*this = *this * r;
     return *this;
 }
 
 Rational & Rational::operator/=(const Rational & r)
 {
-    num   /= r.num;
-    denom /= r.denom;
-    normalise();
+	*this = *this / r;
     return *this;
 }
 
